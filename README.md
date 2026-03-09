@@ -1,5 +1,6 @@
 # Do Public and Private Colleges Produce Different Student Outcomes?
 **Authors:** Jenny Hoang, Helen Jiang
+
 **Course:** CSE 163
 
 ## Required Libraries
@@ -30,12 +31,13 @@ Download the following datasets and place them in a folder called data/:
 
 ## How to Run
 Step 1: Download all datasets and place them in the data/ folder.
+
 Step 2: Create an images/ folder in the project directory.
-Step 3: Run the cleaning script first:
-   python main.py
-Step 4: Run the analysis script:
-   python eda.py
-Step 5: To run tests:
-   python test_eda.py
+
+Step 3: Run the cleaning script first: python main.py
+   
+Step 4: Run the analysis script: python eda.py
+   
+Step 5: To run tests: python test_eda.py
 
 All output images will be saved to the images/ folder.
