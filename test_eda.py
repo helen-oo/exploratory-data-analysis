@@ -130,6 +130,10 @@ def test_merge_scorecard_sheeo() -> None:
 
 def test_merge_drops_unmatched_states() -> None:
     scorecard = make_scorecard()
+    """
+    Tests that merge_scorecard_census drops colleges whose state
+    is not present in the Census dataset.
+    """
 
     # Census only has Washington and California, not Texas
     census_partial = pd.DataFrame({
@@ -181,6 +185,10 @@ def test_income_level_assignment() -> None:
 
 
 def main():
+    """
+    Runs all four unit tests for the eda module and prints a
+    confirmation message if all pass.
+    """
     test_merge_scorecard_census()
     test_merge_scorecard_sheeo()
     test_merge_drops_unmatched_states()

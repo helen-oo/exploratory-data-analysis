@@ -125,12 +125,14 @@ def plot_bar_by_control(scorecard: pd.DataFrame) -> None:
         y='C150_4',
         kind='bar',
         hue='CONTROL',
+        palette='colorblind',
         errorbar=None
     )
 
-    plt.xlabel('College Type')
-    plt.ylabel('Mean 6-Year Graduation Rate')
-    plt.title('Mean Graduation Rate by College Type')
+    plt.xlabel('College Type', fontsize=12)
+    plt.ylabel('Mean 6-Year Graduation Rate', fontsize=12)
+    plt.title('Mean Graduation Rate by College Type',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/grad_rate_by_control.png', bbox_inches='tight')
     plt.close()
@@ -148,12 +150,14 @@ def plot_earnings_by_control(scorecard: pd.DataFrame) -> None:
     sns.boxplot(
         data=scorecard,
         x='CONTROL',
-        y='MD_EARN_WNE_P10'
+        y='MD_EARN_WNE_P10',
+        palette='colorblind'
     )
 
-    plt.xlabel('College Type')
-    plt.ylabel('Median Earnings 10 Years After Entry (USD)')
-    plt.title('Post-Graduation Earnings by College Type')
+    plt.xlabel('College Type', fontsize=12)
+    plt.ylabel('Median Earnings 10 Years After Entry (USD)', fontsize=12)
+    plt.title('Post-Graduation Earnings by College Type',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/earnings_by_control.png', bbox_inches='tight')
     plt.close()
@@ -171,12 +175,14 @@ def plot_grad_rate_distribution(scorecard: pd.DataFrame) -> None:
     sns.histplot(
         scorecard['C150_4'],
         bins=30,
-        kde=True
+        kde=True,
+        color='tab:blue'
     )
 
-    plt.xlabel('6-Year Graduation Rate')
-    plt.ylabel('Number of Colleges')
-    plt.title('Distribution of College Graduation Rates')
+    plt.xlabel('6-Year Graduation Rate', fontsize=12)
+    plt.ylabel('Number of Colleges', fontsize=12)
+    plt.title('Distribution of College Graduation Rates',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/grad_rate_distribution.png', bbox_inches='tight')
     plt.close()
@@ -313,12 +319,14 @@ def plot_grad_rate_by_income_level(merged_census: pd.DataFrame) -> None:
         x='IncomeLevel',
         y='C150_4',
         order=level_order,
+        palette='colorblind',
         errorbar=None
     )
 
-    plt.xlabel('State Income Level')
-    plt.ylabel('Mean 6-Year Graduation Rate')
-    plt.title('Mean Graduation Rate by State Income Level')
+    plt.xlabel('State Income Level', fontsize=12)
+    plt.ylabel('Mean 6-Year Graduation Rate', fontsize=12)
+    plt.title('Mean Graduation Rate by State Income Level',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/grad_rate_by_income_level.png', bbox_inches='tight')
     plt.close()
@@ -337,12 +345,14 @@ def plot_income_vs_grad_rate(merged_census: pd.DataFrame) -> None:
         data=merged_census,
         x='MedianIncome',
         y='C150_4',
-        scatter_kws={'alpha': 0.6}
+        scatter_kws={'alpha': 0.6, 'color': 'tab:blue'},
+        line_kws={'color': 'darkorange'}
     )
 
-    plt.xlabel('State Median Household Income (USD)')
-    plt.ylabel('6-Year Graduation Rate')
-    plt.title('State Median Income vs College Graduation Rate')
+    plt.xlabel('State Median Household Income (USD)', fontsize=12)
+    plt.ylabel('6-Year Graduation Rate', fontsize=12)
+    plt.title('State Median Income vs College Graduation Rate',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/income_vs_grad_rate.png', bbox_inches='tight')
     plt.close()
@@ -362,12 +372,14 @@ def plot_funding_vs_grad_rate(merged_sheeo: pd.DataFrame) -> None:
         data=merged_sheeo,
         x='FundingPerStudent',
         y='AvgGradRate',
-        scatter_kws={'alpha': 0.7}
+        scatter_kws={'alpha': 0.7, 'color': 'tab:green'},
+        line_kws={'color': 'darkred'}
     )
 
-    plt.xlabel('State Funding per Student (USD)')
-    plt.ylabel('Average Public College Graduation Rate')
-    plt.title('State Funding per Student vs Public College Graduation Rate')
+    plt.xlabel('State Funding per Student (USD)', fontsize=12)
+    plt.ylabel('Average Public College Graduation Rate', fontsize=12)
+    plt.title('State Funding per Student vs Public College Graduation Rate',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/funding_vs_grad_rate.png', bbox_inches='tight')
     plt.close()
@@ -395,18 +407,31 @@ def plot_grad_rate_by_funding_level(merged_sheeo: pd.DataFrame) -> None:
         x='FundingLevel',
         y='AvgGradRate',
         order=['Low Funding', 'Medium Funding', 'High Funding'],
+        palette='colorblind',
         errorbar=None
     )
 
-    plt.xlabel('State Funding Level')
-    plt.ylabel('Average Public College Graduation Rate')
-    plt.title('Graduation Rate by State Funding Level')
+    plt.xlabel('State Funding Level', fontsize=12)
+    plt.ylabel('Average Public College Graduation Rate', fontsize=12)
+    plt.title('Graduation Rate by State Funding Level',
+              fontsize=14, weight='bold')
 
     plt.savefig('images/grad_rate_by_funding_level.png', bbox_inches='tight')
     plt.close()
 
 
 def main():
+    """
+    Load datasets, generate summaries, and create visualizations
+    for college data.
+
+    - Loads Scorecard, Census, and SHEEO data and prints their shapes.
+    - Reports missing values and computes summary statistics.
+    - Produces plots for graduation rates, earnings, income, and funding.
+    - Merges datasets (Scorecard + Census, Scorecard + SHEEO) and
+      analyzes relationships.
+    - Prints merged dataset shapes and verifies assumptions for analysis.
+    """
     scorecard = load_scorecard("data/college_scorecard_clean.csv")
     census = load_census("data/census_median_income.csv")
     sheeo = load_sheeo("data/SHEEO_FY2024.csv")
@@ -450,7 +475,7 @@ def main():
 
     categorical_summary(merged_scorecard_census['IncomeLevel'],
                         'Income Level (Scorecard + Census)')
-    verify_test_assumptions(scorecard, merged_scorecard_census, 
+    verify_test_assumptions(scorecard, merged_scorecard_census,
                             merged_scorecard_sheeo)
 
 

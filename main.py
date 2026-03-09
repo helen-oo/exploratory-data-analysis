@@ -117,6 +117,14 @@ def filter_sheeo_data() -> None:
 
 
 def main():
+    """
+    Perform data cleaning and preprocessing for college analysis.
+
+    - Cleans the College Scorecard dataset.
+    - Cleans the Census dataset.
+    - Converts SHEEO Excel files to CSV format.
+    - Filters SHEEO data for analysis.
+    """
     clean_college_scorecard_data()
     clean_census_data()
     convert_sheeo_xlsx_to_csv()
